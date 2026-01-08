@@ -2,23 +2,28 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
-  title: 'GoldenFlow Labs — AI-Powered Food Trust (Starting with Honey)',
-  description: 'Handheld spectrometry + AI + blockchain certification to authenticate food in seconds—starting with honey.',
-  metadataBase: new URL('https://www.goldenflowlabs.com'),
+  title: 'GoldenFlow Labs | AI-Powered Food Trust',
+  description: 'Independent authentication, instant results, and immutable proof for honey and food products. Starting with TrustStack technology.',
+  keywords: ['food authentication', 'honey verification', 'AI authentication', 'blockchain', 'food trust', 'supply chain'],
+  authors: [{ name: 'GoldenFlow Labs' }],
   openGraph: {
-    title: 'GoldenFlow Labs — AI-Powered Food Trust',
-    description: 'TrustStack: device + AI + blockchain certification. Pilot with beekeepers now open.',
-    url: 'https://www.goldenflowlabs.com',
+    title: 'GoldenFlow Labs | AI-Powered Food Trust',
+    description: 'AI-powered food trust — starting with honey. Independent Authentication · Instant Results · Immutable Proof.',
+    url: 'https://goldenflow.com',
     siteName: 'GoldenFlow Labs',
     images: [
       {
         url: '/og.png',
         width: 1200,
         height: 630,
-        alt: 'GoldenFlow Labs - AI-Powered Food Trust',
+        alt: 'GoldenFlow Labs - AI-powered food trust',
       },
     ],
     locale: 'en_US',
@@ -26,20 +31,17 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GoldenFlow Labs — AI-Powered Food Trust',
-    description: 'TrustStack: device + AI + blockchain certification. Pilot with beekeepers now open.',
+    title: 'GoldenFlow Labs | AI-Powered Food Trust',
+    description: 'AI-powered food trust — starting with honey.',
     images: ['/og.png'],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
   },
 }
 
@@ -49,9 +51,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
-        <link rel="canonical" href="https://www.goldenflowlabs.com/" />
+        <link rel="icon" href="/favicon.ico" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -59,21 +61,25 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'GoldenFlow Labs',
-              url: 'https://www.goldenflowlabs.com',
-              logo: 'https://www.goldenflowlabs.com/logo.svg',
+              url: 'https://goldenflow.com',
+              logo: 'https://goldenflow.com/logo.png',
+              description: 'AI-powered food authentication and trust starting with honey',
+              foundingDate: '2024',
+              address: {
+                '@type': 'PostalAddress',
+                addressCountry: 'US',
+              },
               sameAs: [
-                'https://www.linkedin.com/company/goldenflow-labs'
+                'https://twitter.com/goldenflowlabs',
+                'https://linkedin.com/company/goldenflow-labs',
               ],
-              contactPoint: {
-                '@type': 'ContactPoint',
-                email: 'hello@goldenflowlabs.com',
-                contactType: 'customer service'
-              }
-            })
+            }),
           }}
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className="font-sans">
+        {children}
+      </body>
     </html>
   )
 }

@@ -3,25 +3,88 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply border-neutral-800;
+  :root {
+    --gold: #FACC15;
+    --dark: #0B1220;
+    --dark-lighter: #1F2937;
+    --text: #F5F5F5;
   }
-  
+
+  * {
+    @apply border-dark-lighter;
+  }
+
   body {
-    @apply bg-navy text-neutral-100;
+    @apply bg-dark text-[#F5F5F5] antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom selection color */
+  ::selection {
+    @apply bg-gold/30 text-white;
   }
 }
 
 @layer components {
-  .btn-primary {
-    @apply bg-gold text-navy px-6 py-3 rounded-2xl font-medium hover:bg-yellow-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-navy;
+  /* Glass morphism utility */
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
   }
-  
-  .btn-secondary {
-    @apply border border-neutral-800 text-neutral-100 px-6 py-3 rounded-2xl font-medium hover:bg-neutral-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-offset-2 focus:ring-offset-navy;
+
+  /* Gradient text utility */
+  .text-gradient {
+    @apply bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent;
   }
-  
-  .card {
-    @apply bg-neutral-800 p-6 rounded-2xl shadow-lg;
+
+  /* Gold glow ring */
+  .ring-gold {
+    @apply ring-2 ring-gold/50 ring-offset-2 ring-offset-dark;
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay {
+    position: relative;
+  }
+
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Focus states for accessibility */
+  .focus-outline {
+    @apply focus:outline-none focus:ring-2 focus:ring-gold/50 focus:ring-offset-2 focus:ring-offset-dark;
+  }
+}
+
+@layer utilities {
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
